@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quản lý nguyên liệu quán cà phê</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">☕</span>
+      <div>
+        <h1>Công thức cà phê của Thế Anh đz
+        </h1>
+        <p class="muted"></p>Cà phê - Liều thuốc của tâm hồn :'))</p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <label class="file-btn" title="Thêm file công thức (.json hoặc .csv)">
+        <input id="fileInput" type="file" accept=".json,.csv" multiple />
+        <span>+ Thêm công thức</span>
+      </label>
+
+      <button id="exportTotalsBtn" class="ghost" title="Xuất tổng nguyên liệu (CSV)">Xuất CSV</button>
+      <button id="clearCountsBtn" class="danger" title="Đặt lại số lượng đã bán">Đặt lại</button>
+      <button id="helpBtn" class="ghost" title="Hướng dẫn nhanh">?</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="menu-panel">
+      <div class="panel-header">
+        <div class="search">
+          <svg viewBox="0 0 24 24" class="icon"><path d="M21 21l-4.3-4.3m1.6-5.1a6.9 6.9 0 11-13.8 0 6.9 6.9 0 0113.8 0z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <input id="searchInput" type="text" placeholder="Tìm món trong menu..." />
+        </div>
+        <div class="stats muted">
+          <span>Tổng món bán: <strong id="totalOrders">0</strong></span>
+          <span class="dot">•</span>
+          <span>Số món trong menu: <strong id="menuCount">0</strong></span>
+        </div>
+      </div>
+
+      <div id="dropZone" class="dropzone" hidden>
+        <div class="dz-inner">
+          <p>Kéo & thả file <b>.json</b> hoặc <b>.csv</b> vào đây để nhập công thức</p>
+          <small class="muted">Hoặc bấm “+ Thêm công thức” phía trên</small>
+        </div>
+      </div>
+
+      <div id="menuGrid" class="menu-grid"></div>
+    </section>
+
+    <aside class="summary-panel">
+      <div class="panel-header sticky">
+        <h2>Nguyên liệu đã dùng</h2>
+        <p class="muted">Tự động sắp xếp: nhiều → ít</p>
+      </div>
+      <div id="summaryList" class="summary-list"></div>
+    </aside>
+  </main>
+
+  <template id="cardTpl">
+    <div class="card">
+      <div class="card-head">
+        <h3 class="item-name"></h3>
+        <span class="badge item-category"></span>
+      </div>
+      <ul class="ing-list"></ul>
+      <div class="card-foot">
+        <button class="stepper minus" aria-label="Giảm 1">−</button>
+        <div class="counter">0</div>
+        <button class="stepper plus" aria-label="Tăng 1">+</button>
+      </div>
+    </div>
+  </template>
+
+  <dialog id="helpDialog" class="modal">
+    <form method="dialog">
+      <h3>Hướng dẫn nhanh</h3>
+      <ol>
+        <li><b>Nhập công thức:</b> bấm <i>+ Thêm công thức</i> và chọn file <code>.json</code> hoặc <code>.csv</code>. Có thể nhập nhiều file, hệ thống sẽ gộp và cập nhật menu.</li>
+        <li><b>Tăng số lượng:</b> bấm nút <b>+</b> trên từng món. Tổng nguyên liệu sẽ nhảy số ngay và sắp xếp theo lượng dùng giảm dần.</li>
+        <li><b>Tìm món:</b> dùng ô tìm kiếm phía trên danh sách.</li>
+        <li><b>Đặt lại:</b> bấm <i>Đặt lại</i> để đưa số lượng về 0.</li>
+        <li><b>Xuất CSV:</b> tải về bảng tổng hợp nguyên liệu đã dùng.</li>
+      </ol>
+      <details>
+        <summary><b>Định dạng file JSON</b></summary>
+<pre><code>[
+  {
+    "id": "latte",
+    "name": "Latte",
+    "category": "Coffee",
+    "ingredients": [
+      {"name": "Espresso", "unit": "shot", "qty": 1},
+      {"name": "Sữa tươi", "unit": "ml", "qty": 220},
+      {"name": "Đường", "unit": "g", "qty": 8}
+    ]
+  }
+]</code></pre>
+      </details>
+      <details>
+        <summary><b>Định dạng file CSV</b></summary>
+        <p>Các cột: <code>name,category,ingredient,unit,qty</code></p>
+<pre><code>Latte,Coffee,Espresso,shot,1
+Latte,Coffee,Sữa tươi,ml,220
+Latte,Coffee,Đường,g,8</code></pre>
+      </details>
+      <div class="modal-actions">
+        <button class="ghost">Đóng</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
