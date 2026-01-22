@@ -3,10 +3,10 @@
   /* Palette: Coffee & Professional Grey */
   --primary: #3C2A21;       /* Espresso */
   --secondary: #D4A373;     /* Latte Gold */
-  --bg-body: #FAFAFA;       /* Paper White */
+  --bg-body: #c57676;       /* Paper White */
   --bg-panel: #FFFFFF;
   --text-main: #1F1F1F;
-  --text-muted: #6B7280;
+  --text-muted: #26282c;
   --border: #E5E7EB;
   --success: #10B981;
   --danger: #EF4444;
@@ -86,7 +86,7 @@ input, select {
 /* Hero Section */
 .hero { text-align: center; padding: 60px 20px; }
 .hero h2 { font-size: 3rem; margin-bottom: 1rem; }
-.hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 30px; }
+.hero p { font-size: 1.2rem; color: var(--text-main); max-width: 600px; margin: 0 auto 30px; }
 
 /* Tables */
 .table-wrapper { overflow-x: auto; }
